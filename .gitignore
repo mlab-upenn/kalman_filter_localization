@@ -1,1 +1,5 @@
+/build
+/install
+/log
+*.pdf
 .vscode

@@ -2,7 +2,7 @@ ekf_localization:
     ros__parameters:
       reference_frame_id: "map"
       robot_frame_id: "base_link"
-      gnss_pose_topic: "gnss_pose"
+      gnss_pose_topic: "gps_xy"
       imu_topic: "imu"
       odom_topic: "odom"
       pub_period: 10
