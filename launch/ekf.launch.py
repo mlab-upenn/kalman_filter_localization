@@ -54,17 +54,24 @@ def generate_launch_description():
         output='screen'
         )
 
-    tf = launch_ros.actions.Node(
-        package='tf2_ros',
-        node_executable='static_transform_publisher',
-        arguments=['0', '0', '0', '0', '0', '0', '1', 'base_link', 'imu_link']
-        )
+    # tf = launch_ros.actions.Node(
+    #     package='tf2_ros',
+    #     node_executable='static_transform_publisher',
+    #     arguments=['0', '0', '0', '0', '0', '0', '1', 'base_link', 'imu_link']
+    #     )
 
+    # return launch.LaunchDescription([
+    #     launch.actions.DeclareLaunchArgument(
+    #         'ekf_param_dir',
+    #         default_value=ekf_param_dir,
+    #         description='Full path to ekf parameter file to load'),
+    #     ekf,
+    #     tf,
+    #         ])
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument(
             'ekf_param_dir',
             default_value=ekf_param_dir,
             description='Full path to ekf parameter file to load'),
         ekf,
-        tf,
             ])

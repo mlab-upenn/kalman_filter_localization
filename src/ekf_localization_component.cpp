@@ -229,6 +229,23 @@ EkfLocalizationComponent::EkfLocalizationComponent(const rclcpp::NodeOptions & o
   auto gnss_pose_callback =
     [this](const typename geometry_msgs::msg::PoseStamped::SharedPtr msg) -> void
     {
+      if(!initial_pose_recieved_){
+        
+        std::cout << "initial pose callback" << std::endl;
+        initial_pose_recieved_ = true;
+        current_pose_ = *msg;
+
+        Eigen::VectorXd x = Eigen::VectorXd::Zero(ekf_.getNumState());
+        x(STATE::X) = current_pose_.pose.position.x;
+        x(STATE::Y) = current_pose_.pose.position.y;
+        x(STATE::Z) = current_pose_.pose.position.z;
+        x(STATE::QX) = current_pose_.pose.orientation.x;
+        x(STATE::QY) = current_pose_.pose.orientation.y;
+        x(STATE::QZ) = current_pose_.pose.orientation.z;
+        x(STATE::QW) = current_pose_.pose.orientation.w;
+        ekf_.setInitialX(x);
+      }
+
       if (initial_pose_recieved_ && use_gnss_) {
         measurementUpdate(*msg, var_gnss_);
       }
